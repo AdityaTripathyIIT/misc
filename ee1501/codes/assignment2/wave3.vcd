@@ -1,0 +1,392 @@
+$date
+	Tue Apr 22 20:07:26 2025
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1ps
+$end
+$scope module Nand4BitAdder_tb $end
+$var wire 4 ! sum [3:0] $end
+$var wire 1 " cout $end
+$var reg 4 # a [3:0] $end
+$var reg 4 $ b [3:0] $end
+$var reg 1 % cin $end
+$scope module dut $end
+$var wire 4 & a [3:0] $end
+$var wire 4 ' b [3:0] $end
+$var wire 1 % cin $end
+$var wire 4 ( sum [3:0] $end
+$var wire 1 " cout $end
+$var wire 5 ) carry [4:0] $end
+$scope begin adder_stage[0] $end
+$var wire 1 * a_xor_b $end
+$var wire 1 + ab $end
+$var wire 1 , cin_a_xor_b $end
+$var wire 1 - n1 $end
+$var wire 1 . n10 $end
+$var wire 1 / n2 $end
+$var wire 1 0 n3 $end
+$var wire 1 1 n4 $end
+$var wire 1 2 n5 $end
+$var wire 1 3 n6 $end
+$var wire 1 4 n8 $end
+$var wire 1 5 n9 $end
+$var parameter 2 6 i $end
+$upscope $end
+$scope begin adder_stage[1] $end
+$var wire 1 7 a_xor_b $end
+$var wire 1 8 ab $end
+$var wire 1 9 cin_a_xor_b $end
+$var wire 1 : n1 $end
+$var wire 1 ; n10 $end
+$var wire 1 < n2 $end
+$var wire 1 = n3 $end
+$var wire 1 > n4 $end
+$var wire 1 ? n5 $end
+$var wire 1 @ n6 $end
+$var wire 1 A n8 $end
+$var wire 1 B n9 $end
+$var parameter 2 C i $end
+$upscope $end
+$scope begin adder_stage[2] $end
+$var wire 1 D a_xor_b $end
+$var wire 1 E ab $end
+$var wire 1 F cin_a_xor_b $end
+$var wire 1 G n1 $end
+$var wire 1 H n10 $end
+$var wire 1 I n2 $end
+$var wire 1 J n3 $end
+$var wire 1 K n4 $end
+$var wire 1 L n5 $end
+$var wire 1 M n6 $end
+$var wire 1 N n8 $end
+$var wire 1 O n9 $end
+$var parameter 3 P i $end
+$upscope $end
+$scope begin adder_stage[3] $end
+$var wire 1 Q a_xor_b $end
+$var wire 1 R ab $end
+$var wire 1 S cin_a_xor_b $end
+$var wire 1 T n1 $end
+$var wire 1 U n10 $end
+$var wire 1 V n2 $end
+$var wire 1 W n3 $end
+$var wire 1 X n4 $end
+$var wire 1 Y n5 $end
+$var wire 1 Z n6 $end
+$var wire 1 [ n8 $end
+$var wire 1 \ n9 $end
+$var parameter 3 ] i $end
+$upscope $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+$comment Show the parameter values. $end
+$dumpall
+b11 ]
+b10 P
+b1 C
+b0 6
+$end
+#0
+$dumpvars
+x\
+x[
+xZ
+xY
+xX
+xW
+xV
+xU
+xT
+xS
+xR
+xQ
+xO
+xN
+xM
+xL
+xK
+xJ
+xI
+xH
+xG
+xF
+xE
+xD
+xB
+xA
+x@
+x?
+x>
+x=
+x<
+x;
+x:
+x9
+x8
+x7
+x5
+x4
+x3
+x2
+x1
+x0
+x/
+x.
+x-
+x,
+x+
+x*
+bx0 )
+bx (
+b0 '
+b0 &
+0%
+b0 $
+b0 #
+x"
+bx !
+$end
+#1000
+14
+13
+11
+10
+1=
+1J
+1W
+1-
+1/
+1:
+1<
+1G
+1I
+1T
+1V
+#2000
+0,
+0+
+0*
+08
+07
+0E
+0D
+0R
+0Q
+#3000
+1.
+15
+12
+1B
+1>
+1?
+1A
+1O
+1K
+1L
+1N
+1\
+1X
+1Y
+1[
+#4000
+bx00 )
+bx0 !
+bx0 (
+09
+0F
+0S
+#5000
+1@
+1;
+1H
+1U
+#6000
+0"
+bx00 !
+bx00 (
+b0 )
+#7000
+1M
+1Z
+#8000
+b0 !
+b0 (
+#100000
+b1 )
+1%
+b1111 #
+b1111 &
+#101000
+03
+0/
+0<
+0I
+0V
+#102000
+b1 !
+b1 (
+1*
+17
+1D
+1Q
+#103000
+01
+02
+04
+0?
+0L
+0Y
+#104000
+12
+13
+1,
+b1111 !
+b1111 (
+#105000
+b1110 !
+b1110 (
+0.
+#106000
+b11 )
+#107000
+0A
+0@
+0>
+#108000
+19
+1?
+1@
+#109000
+0;
+b1100 !
+b1100 (
+#110000
+b111 )
+#111000
+0N
+0M
+0K
+#112000
+1F
+1L
+1M
+#113000
+0H
+b1000 !
+b1000 (
+#114000
+b1111 )
+#115000
+0[
+0Z
+0X
+#116000
+1S
+1Y
+1Z
+#117000
+0U
+b0 !
+b0 (
+#118000
+1"
+b11111 )
+#200000
+b11110 )
+0%
+b1 #
+b1 &
+#201000
+14
+11
+1<
+1I
+1V
+#202000
+0,
+02
+07
+0D
+0Q
+#203000
+1.
+b1 !
+b1 (
+1>
+1A
+1K
+1N
+1X
+1[
+#204000
+b11100 )
+0@
+09
+0M
+0F
+0Z
+0S
+#205000
+1@
+1;
+1H
+b1111 !
+b1111 (
+1U
+#206000
+0"
+b1101 !
+b1101 (
+b0 )
+#207000
+1M
+1Z
+#208000
+b1 !
+b1 (
+#300000
+b1 )
+1%
+b1001 $
+b1001 '
+#301000
+04
+03
+01
+0-
+00
+0W
+#302000
+1,
+12
+13
+1/
+10
+1+
+1Q
+#303000
+0.
+b0 !
+b0 (
+0*
+05
+0Y
+#304000
+11
+14
+b11 )
+b1000 !
+b1000 (
+#305000
+0@
+03
+0,
+#306000
+b1011 !
+b1011 (
+1.
+#400000

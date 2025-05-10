@@ -1,0 +1,197 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{karnaugh-map}
+\definecolor{codegray}{gray}{0.95}
+
+\lstset{
+  backgroundcolor=\color{codegray},
+  basicstyle=\ttfamily\footnotesize,
+  frame=single,
+  breaklines=true,
+  language=Verilog
+}
+
+\begin{document}
+
+\section*{Problem 1 : Priority Encoder Module}
+
+The following Verilog module implements a 4-to-2 \textbf{priority encoder} with an additional \texttt{valid} output signal. It takes a 4-bit input vector \texttt{in[3:0]} and produces a 2-bit output \texttt{out[1:0]} representing the highest-priority asserted input (with bit 3 having the highest priority and bit 0 the lowest).
+
+\begin{itemize}
+	\item The \texttt{always @(*)} block ensures combinational logic.
+	\item The \texttt{casez} statement allows for "don't care" conditions (using `z`) to simplify pattern matching.
+	\item If one or more input bits are high, the encoder outputs the binary index of the highest-priority high bit and sets \texttt{valid = 1}.
+	\item If no input bits are high, \texttt{valid} is set to 0 and \texttt{out} is set to 0.
+\end{itemize}
+
+\noindent Here's the Verilog code:
+
+\begin{lstlisting}
+module priorityEncoder(input [3:0] in, output reg [1:0] out, output reg valid);
+  always @ (*) begin
+    casez (in)
+      4'b1zzz : begin valid = 1'b1; out = 2'd3; end
+      4'b01zz : begin valid = 1'b1; out = 2'd2; end
+      4'b001z : begin valid = 1'b1; out = 2'd1; end
+      4'b0001 : begin valid = 1'b1; out = 2'd0; end
+      default : begin
+        valid = 1'b0;
+        out = 2'd0;
+      end
+    endcase
+  end
+endmodule
+\end{lstlisting}
+
+\section*{Problem 2 : 4 bit Mod 16 synchronous Up Counter}
+
+The \texttt{synchronousUpCounter} module implements a 4-bit synchronous up counter with asynchronous reset and enable control. Two versions of the counter are shown:
+
+\subsection*{1. Implementation using T Flip-Flop K-Map Logic}
+\begin{itemize}
+	\item This version mimics a T flip-flop–based design derived from Karnaugh map simplifications.
+	\item On every rising edge of the clock:
+	      \begin{itemize}
+		      \item If \texttt{reset} is high, the counter resets to 0.
+		      \item If \texttt{enable} is high, the next state of each bit is determined by toggling behavior:
+		            \begin{align*}
+			            \texttt{count[0]} & \leftarrow \sim \texttt{count[0]}                                                                 \\
+			            \texttt{count[1]} & \leftarrow \texttt{count[1]} \oplus \texttt{count[0]}                                             \\
+			            \texttt{count[2]} & \leftarrow \texttt{count[2]} \oplus (\texttt{count[0]} \& \texttt{count[1]})                      \\
+			            \texttt{count[3]} & \leftarrow \texttt{count[3]} \oplus (\texttt{count[0]} \& \texttt{count[1]} \& \texttt{count[2]})
+		            \end{align*}
+	      \end{itemize}
+	\item This design mirrors the behavior of T flip-flops where toggling occurs when input T = 1.
+\end{itemize}
+\begin{center}
+	\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|}
+		\hline
+		\multicolumn{4}{|c|}{Present State} & \multicolumn{4}{c|}{Transition} & \multicolumn{4}{c|}{Next State}                                                                             \\
+		\hline
+		$Q_3$                               & $Q_2$                           & $Q_1$                           & $Q_0$ & $T_3$ & $T_2$ & $T_1$ & $T_0$ & $Q_3'$ & $Q_2'$ & $Q_1'$ & $Q_0'$ \\
+		\hline
+		0                                   & 0                               & 0                               & 0     & 0     & 0     & 0     & 1     & 0      & 0      & 0      & 1      \\
+		0                                   & 0                               & 0                               & 1     & 0     & 0     & 1     & 1     & 0      & 0      & 1      & 0      \\
+		0                                   & 0                               & 1                               & 0     & 0     & 0     & 0     & 1     & 0      & 0      & 1      & 1      \\
+		0                                   & 0                               & 1                               & 1     & 0     & 1     & 1     & 1     & 0      & 1      & 0      & 0      \\
+		0                                   & 1                               & 0                               & 0     & 0     & 0     & 0     & 1     & 0      & 1      & 0      & 1      \\
+		0                                   & 1                               & 0                               & 1     & 0     & 0     & 1     & 1     & 0      & 1      & 1      & 0      \\
+		0                                   & 1                               & 1                               & 0     & 0     & 0     & 0     & 1     & 0      & 1      & 1      & 1      \\
+		0                                   & 1                               & 1                               & 1     & 1     & 1     & 1     & 1     & 1      & 0      & 0      & 0      \\
+		1                                   & 0                               & 0                               & 0     & 0     & 0     & 0     & 1     & 1      & 0      & 0      & 1      \\
+		1                                   & 0                               & 0                               & 1     & 0     & 0     & 1     & 1     & 1      & 0      & 1      & 0      \\
+		1                                   & 0                               & 1                               & 0     & 0     & 0     & 0     & 1     & 1      & 0      & 1      & 1      \\
+		1                                   & 0                               & 1                               & 1     & 0     & 1     & 1     & 1     & 1      & 1      & 0      & 0      \\
+		1                                   & 1                               & 0                               & 0     & 0     & 0     & 0     & 1     & 1      & 1      & 0      & 1      \\
+		1                                   & 1                               & 0                               & 1     & 0     & 0     & 1     & 1     & 1      & 1      & 1      & 0      \\
+		1                                   & 1                               & 1                               & 0     & 0     & 0     & 0     & 1     & 1      & 1      & 1      & 1      \\
+		1                                   & 1                               & 1                               & 1     & 1     & 1     & 1     & 1     & 0      & 0      & 0      & 0      \\
+		\hline
+	\end{tabular}
+\end{center}
+\subsection*{Karnaugh Map for $T_3$}
+\begin{karnaugh-map}[4][4][1][$Q_1Q_0$][$Q_3Q_2$]
+\manualterms{0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1}
+\implicant{7}{15}
+\end{karnaugh-map}
+$T_3 = Q_2Q_1Q_0$
+\subsection*{Karnaugh Map for $T_2$}
+\begin{karnaugh-map}[4][4][1][$Q_1Q_0$][$Q_3Q_2$]
+\manualterms{0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1}
+\implicant{3}{11}
+\end{karnaugh-map}
+$T_2 = Q_1Q_0$
+\subsection*{Karnaugh Map for $T_1$}
+\begin{karnaugh-map}[4][4][1][$Q_1Q_0$][$Q_3Q_2$]
+\manualterms{0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1}
+\implicant{1}{11}
+\end{karnaugh-map}
+$T_1 = Q_0$
+
+\subsection*{Karnaugh Map for $T_0$}
+\begin{karnaugh-map}[4][4][1][$Q_1Q_0$][$Q_3Q_2$]
+\manualterms{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
+\implicant{0}{10}
+\end{karnaugh-map}
+$T_0 = 1$
+\newline
+\noindent Code snippet:
+
+\begin{lstlisting}
+module synchronousUpCounter(
+  input clk,
+  input reset,
+  input enable,
+  output reg [3:0] count
+);
+  always @ (posedge clk or posedge reset) begin
+    if (reset == 1)
+      out <= 4'd0;
+    else if (enable == 1) begin
+      count[0] <= ~count[0];
+      count[1] <= count[1] ^ count[0];
+      count[2] <= count[2] ^ (out[0] & count[1]);
+      count[3] <= count[3] ^ (count[0] & count[1] & count[2]);
+    end
+  end
+endmodule
+\end{lstlisting}
+
+\subsection*{2. Implementation using Adder Logic}
+\begin{itemize}
+	\item This alternative version uses a standard binary incrementer (adder logic).
+	\item On the rising edge of the clock:
+	      \begin{itemize}
+		      \item If \texttt{reset} is high, the counter resets to 0.
+		      \item If \texttt{enable} is high, the counter is incremented by 1.
+	      \end{itemize}
+	\item This approach is more compact and commonly used in synthesizable designs.
+\end{itemize}
+
+\noindent Code snippet:
+
+\begin{lstlisting}
+/* implemented using adder logic */
+module synchronousUpCounter (
+  input clk, 
+  input reset, 
+  input enable, 
+  output reg [3:0] out
+);
+always @ (posedge clk or posedge reset) begin
+  if (reset == 1) out <= 4'd0;
+  else if (enable == 1) begin
+    out <= out + 1'b1;
+  end
+end
+endmodule
+\end{lstlisting}
+
+\section*{Problem 3: Even Parity Generator}
+
+The following Verilog module computes the \textbf{parity bit} of an 8-bit input vector.
+
+\begin{itemize}
+	\item The module takes an 8-bit input vector \texttt{data[7:0]}.
+	\item It produces a single-bit output \texttt{parity}, which is the result of a bitwise XOR (exclusive OR) operation on all bits of \texttt{data}.
+	\item The reduction operator \texttt{\^{}} (XOR reduction) is used to compute the parity efficiently:
+	      \[
+		      \texttt{parity} = data[0] \oplus data[1] \oplus \cdots \oplus data[7]
+	      \]
+	\item If the number of 1s in \texttt{data} is odd, the output is 1 (odd parity). If even, the output is 0.
+\end{itemize}
+
+\noindent Here is the Verilog code:
+
+\begin{lstlisting}
+module parity(input [7:0] data, output parity);
+  assign parity = ^ data;
+endmodule
+\end{lstlisting}
+
+\end{document}
+
+\end{document}
+

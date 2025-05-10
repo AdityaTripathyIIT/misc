@@ -1,0 +1,26 @@
+Goal 1: 
+  Given: a function A sin(kx)sin(mx) - k, A, m  are randomly chosen, we don't care for now.
+  TODO:
+  1) Sample it a 2 * max(k, m) rate.
+  2) Take DFT of the sampled function
+  3) Relate where the clumps are centered to k and m 
+
+Goal 2:
+  Given: a function sin(kx)\sum{A_m sin(mx)} - k, m, A are randomly chosen, we don't care for now.
+  TODO:
+  1) Sample it a 2 * max(k, m) rate.
+  2) Take DFT of the sampled function
+  3) Relate where the clumps are centered to k and m 
+  4) Try to relate the amplitude at some point in the spectrum to the A_m coefficient
+
+Goal 3:
+  Given: a function \sum{A_mn sin(kx)sin(mx)} - k, m and a are randomly chosen, we don't care for now.
+  TODO:
+  1) Sample it a 2 * max(k, m) rate.
+  2) Take DFT of the sampled function
+  3) Relate where the clumps are centered to k and m 
+  4) Try to relate the amplitude at some point in the spectrum to the A_m coefficient
+
+Goal 4: Backtrack
+  
+

@@ -1,0 +1,510 @@
+\input{preamble}
+\input{format}
+\input{commands}
+\usepackage{circuitikz}
+\usepackage{float}
+\usepackage{esint}
+%\usepackage{pxfonts}
+\usepackage{graphicx}
+\newtheoremstyle{observationstyle}
+  {3pt}   
+  {3pt}   
+  {\itshape}  
+  {}  
+  {\bfseries}  
+  {.}  
+  {.5em}  
+  {}  
+\theoremstyle{observationstyle}
+\newtheorem{observation}{Observation}
+\newcommand{\uvec}[1]{\boldsymbol{\hat{\textbf{#1}}}}
+\begin{document}
+
+\begin{Large}
+    \textsf{\textbf{Assignment 1}}
+\end{Large}
+
+\vspace{1ex}
+
+\textsf{\textbf{Student:}} \text{Aditya Tripathy}, \href{mailto:ee24btech11001@iith.ac.in}{\texttt{ee24btech11001@iith.ac.in}}\\
+
+\vspace{2ex}
+
+
+\begin{problem}{}{}
+
+\begin{enumerate}[(a)]
+    \item The fields due to the charges at a point $z \uvec{k}$ can be written as follows:
+    \begin{align*}
+        \vec{E_1} = \frac{1}{4\pi\epsilon_0} \frac{q\left(z\uvec{k} - \frac{d}{2}\uvec{k}\right)}{\left \Vert z\uvec{k} - \frac{d}{2} \uvec{k} \right \Vert^3} \\
+         \vec{E_2} = \frac{1}{4\pi\epsilon_0} \frac{q\left(z\uvec{k} + \frac{d}{2}\uvec{k}\right)}{\left \Vert z\uvec{k} + \frac{d}{2} \uvec{k} \right \Vert^3} 
+    \end{align*}
+    Now using superposition of electric field vectors, net field at the point $z\uvec{k}$ is written as,
+    \begin{align*}
+        \vec{E} &= \vec{E_1} + \vec{E_2}\\
+        \implies \vec{E} &= 
+        \begin{cases}
+            \frac{q\uvec{k}}{4\pi\epsilon_0} \left(\frac{1}{\left(z-\frac{d}{2}\right)^2} + \frac{1}{\left(z+\frac{d}{2}\right)^2}\right) & z >\frac{d}{2}\\
+             \frac{q\uvec{k}}{4\pi\epsilon_0} \left(\frac{1}{\left(z+\frac{d}{2}\right)^2} - \frac{1}{\left(z-\frac{d}{2}\right)^2}\right) & \frac{-d}{2}<z<\frac{d}{2}\\
+            \frac{-q\uvec{k}}{4\pi\epsilon_0} \left(\frac{1}{\left(z-\frac{d}{2}\right)^2} + \frac{1}{\left(z+\frac{d}{2}\right)^2}\right) & z <\frac{-d}{2}
+        \end{cases}
+    \end{align*}
+    On simplification,
+    \begin{align*}
+        \vec{E} &= 
+        \begin{cases}
+            \frac{2q\uvec{k}}{4\pi\epsilon_0} \left(\frac{z^2 + \frac{d^2}{4}}{\left(z^2 - \frac{d^2}{4}\right)^2}\right) & z >\frac{d}{2}\\
+             \frac{-2q\uvec{k}}{4\pi\epsilon_0} \left(\frac{zd}{\left(z^2 - \frac{d^2}{4}\right)^2}\right) & \frac{-d}{2}<z<\frac{d}{2}\\
+            \frac{-2q\uvec{k}}{4\pi\epsilon_0} \left(\frac{z^2 + \frac{d^2}{4}}{\left(z^2 - \frac{d^2}{4}\right)^2}\right) & z <\frac{-d}{2}
+        \end{cases}
+    \end{align*}
+
+    \item The fields due to the charges at a point $x \uvec{i}$ can be written as follows,
+    \begin{align*}
+    \vec{E_1} = \frac{1}{4\pi\epsilon_0} \frac{q\left(x\uvec{i} - \frac{d}{2}\uvec{k}\right)}{\left \Vert x\uvec{i} - \frac{d}{2} \uvec{k} \right \Vert^3} = \frac{q}{4\pi\epsilon_0} \frac{x\uvec{i} - \frac{d}{2}\uvec{k}}{\left( x^2+\frac{d^2}{4}\right)^{\frac{3}{2}}}\\
+    \vec{E_2} = \frac{1}{4\pi\epsilon_0} \frac{q\left(x\uvec{i} + \frac{d}{2}\uvec{k}\right)}{\left \Vert x\uvec{i} + \frac{d}{2} \uvec{k} \right \Vert^3} = \frac{q}{4\pi\epsilon_0} \frac{x\uvec{i} + \frac{d}{2}\uvec{k}}{\left( x^2+\frac{d^2}{4}\right)^{\frac{3}{2}}}\\
+    \end{align*}
+    Again, using superposition, the net field at the point $x\uvec{i}$ can be written as,
+    \begin{align*}
+        \vec{E} &= \vec{E_1} + \vec{E_2}\\
+        \implies \vec{E} &= \frac{q}{4\pi\epsilon_0} \frac{x\uvec{i} - \frac{d}{2}\uvec{k}}{\left( x^2+\frac{d^2}{4}\right)^{\frac{3}{2}}} + \frac{q}{4\pi\epsilon_0} \frac{x\uvec{i} + \frac{d}{2}\uvec{k}}{\left( x^2+\frac{d^2}{4}\right)^{\frac{3}{2}}}
+        \\
+        \implies \vec{E} &= \frac{2q}{4\pi\epsilon_0}\frac{x\uvec{i}}{\left( x^2+\frac{d^2}{4}\right)^{\frac{3}{2}}}
+    \end{align*}
+
+    \item If the sign of the charge at $\frac{-d}{2}\uvec{k}$ is flipped, we get
+    \begin{enumerate}[(a)]
+        \item 
+        \begin{align*}
+            \vec{E} &= \vec{E_1} - \vec{E_2} \\
+            \implies \vec{E} &= 
+            \begin{cases}
+            \frac{q\uvec{k}}{4\pi\epsilon_0} \left(\frac{1}{\left(z-\frac{d}{2}\right)^2} - \frac{1}{\left(z+\frac{d}{2}\right)^2}\right) & z >\frac{d}{2}\\
+             \frac{-q\uvec{k}}{4\pi\epsilon_0} \left(\frac{1}{\left(z+\frac{d}{2}\right)^2} + \frac{1}{\left(z-\frac{d}{2}\right)^2}\right) & \frac{-d}{2}<z<\frac{d}{2}\\
+            \frac{q\uvec{k}}{4\pi\epsilon_0} \left(\frac{1}{\left(z+\frac{d}{2}\right)^2} - \frac{1}{\left(z-\frac{d}{2}\right)^2}\right) & z <\frac{-d}{2}
+        \end{cases}
+        \end{align*}
+        On simplification,
+        \begin{align}
+            \vec{E} = 
+                \begin{cases}
+                     \frac{2q\uvec{k}}{4\pi\epsilon_0} \left(\frac{zd}{\left(z^2 - \frac{d^2}{4}\right)^2}\right)& z >\frac{d}{2}\\
+                    \frac{-2q\uvec{k}}{4\pi\epsilon_0} \left(\frac{z^2 + \frac{d^2}{4}}{\left(z^2 - \frac{d^2}{4}\right)^2}\right) & \frac{-d}{2}<z <\frac{d}{2}\\
+                    \frac{-2q\uvec{k}}{4\pi\epsilon_0} \left(\frac{zd}{\left(z^2 - \frac{d^2}{4}\right)^2}\right) & \frac{-d}{2}<z<\frac{d}{2}
+                \end{cases}
+        \end{align}
+
+        \item 
+        \begin{align*}
+            \vec{E} &= \vec{E_1} - \vec{E_2} \\
+            \implies \vec{E} &= \frac{-q}{4\pi\epsilon_0}\frac{d\uvec{i}}{\left( x^2+\frac{d^2}{4}\right)^{\frac{3}{2}}}
+        \end{align*}
+    \end{enumerate}
+\end{enumerate}
+\end{problem}
+\begin{problem}{}{}
+\begin{enumerate}[(a)]
+    \item  { The situation described in the problem can be represented in the following free-body diagram,
+        \begin{figure}[H]
+        \centering
+        \resizebox{0.5\textwidth}{!}{
+            \begin{circuitikz}
+                \tikzstyle{every node}=[font=\normalsize]
+                \draw [->, >=Stealth] (2.75,6.75) -- (2.75,10.25);
+                \draw [->, >=Stealth] (2.75,6.75) -- (9.25,6.75);
+                \draw  (4.25,6.75) circle (1cm);
+                \draw  (7.25,6.75) circle (1cm);
+                \draw [->, >=Stealth] (4.25,7) -- (2.75,7);
+                \draw [->, >=Stealth] (3.5,7) -- (5.75,7);
+                \draw [ fill={rgb,255:red,3; green,3; blue,3} ] (5.25,7) circle (0cm);
+                \node [font=\normalsize] at (5.75,7.5) {$F_{coulomb}$};
+                \node [font=\normalsize] at (3,7.5) {$F_{sp}$};
+                \node [font=\normalsize] at (4.25,6.5) {x=x};
+                \node [font=\normalsize] at (7.25,6.5) {x=d};
+                \node [font=\normalsize] at (9.5,6.75) {X};
+                \node [font=\normalsize] at (2.75,10.5) {Y};
+        \end{circuitikz}
+    }
+    \end{figure} 
+    For the sphere at $x = x$ to be at equilibrium, 
+    \begin{align*}
+        \sum \vec{F_x} &= 0\\
+        \implies k(x)(-\uvec{i}) &+ \frac{1}{4\pi\epsilon_0}\frac{(-Q^2)(x - d)\uvec{i}}{\left \Vert (x-d)\uvec{i}\right \Vert^3} = 0\\
+        \implies \frac{1}{4\pi\epsilon_0}\frac{(Q^2)}{\left (d-x\right )^2} &= kx\\
+        \implies Q &= \sqrt{4\pi k\epsilon_0x(d-x)^2}
+        \end{align*}
+        }
+    \item
+        If we observe the expression for Q, for $x \in [0, d]$, the maximum value of Q is achieved when,
+            \begin{align*}
+                \frac{d}{dx}\left( x(d-x)^2\right) &= 0\\
+                \implies (d-x)^2 -2x(d-x) &= 0\\
+                \implies d^2 + x^2 - 2xd -2xd + 2x^2 &= 0\\
+                \implies 3x^2 + d^2 - 4xd &= 0\\
+                \implies x &= \frac{d}{3}, d\\
+            \end{align*}
+        Since both the charges cannot be at $x = d$, because of infinite coulombic force but finite spring force. Therefore the maximum charge that can be measured using the given method is therefore, 
+        \begin{align*}
+            Q_{max} = \sqrt{\frac{16}{27}\pi k\epsilon_0d^3}
+        \end{align*}
+        If the charge is any larger than $Q_{max}$ then the system is never at equilibrium and the charged sphere initially at origin  will collapse towards the fixed sphere.
+\end{enumerate}       
+    
+\end{problem}
+
+\begin{problem}{}{}
+    \begin{enumerate}[(a)]
+        \item 
+            \begin{align*}
+                \text{Flux} &= \iint_{\mathbb{R}} (\vec{F_1}\cdot\uvec{n}) dS\\
+                &=\int_{\phi=0}^{\phi=\frac{\pi}{2}}\int_{\theta = 0}^{\theta =2\pi} \left(\left(5\left\Vert\vec{a_z}\right\Vert\uvec{k}\right)\cdot{\boldsymbol{\hat{\rho}}}\right)\rho \sin(\phi)d\theta d\phi
+            \end{align*}
+            We know,
+            \begin{align*}
+                \uvec{k} = \cos(\phi)\boldsymbol{\hat{\rho}} - \sin(\phi)\boldsymbol{\hat{\phi}}
+            \end{align*}
+            Substituting, 
+            \begin{align*}
+                \text{Flux}&=\int_{\phi=0}^{\phi=\frac{\pi}{2}}\int_{\theta = 0}^{\theta =2\pi} \left(\left(5\left\Vert\vec{a_z}\right\Vert\left(\cos(\phi)\boldsymbol{\hat{\rho}} - \sin(\phi)\boldsymbol{\hat{\phi}}\right)\right)\cdot{\boldsymbol{\hat{\rho}}}\right)\rho^2 \sin(\phi)d\theta d\phi\\
+                &=\int_{\phi=0}^{\phi=\frac{\pi}{2}}\int_{\theta = 0}^{\theta =2\pi} 5\left\Vert\vec{a_z}\right\Vert\rho^2 \sin(\phi)\cos \left(\phi \right)d\theta d\phi\\
+                &=\int_{\phi=0}^{\phi=\frac{\pi}{2}}\int_{\theta = 0}^{\theta =2\pi} 5\left\Vert\vec{a_z}\right\Vert\rho^2 \sin(\phi)\cos \left(\phi \right)d\theta d\phi\\
+                &=\int_{\phi=0}^{\phi=\frac{\pi}{2}} 10\pi\left\Vert\vec{a_z}\right\Vert\rho^2 \sin(\phi)\cos \left(\phi \right)d\theta d\phi\\
+                &=5\pi\left\Vert\vec{a_z}\right\Vert\rho^2
+            \end{align*}
+            A simple observation would have saved us a lot of trouble,
+                \begin{observation}
+                    Flux of a divergence-free field through a closed surface is zero.
+                \end{observation}
+            If we consider the hemispherical surface along with the circular base(surface normal in the $-\uvec{k}$ direction), the flux through it will be zero, therefore
+            \begin{align*}
+                \Phi_1 + \Phi_2 &= 0\\
+                \implies \Phi_1 &= -\Phi_2\\
+                \implies \Phi_1 = -\left(\pi\rho^2\left(\uvec{-k}\right)\right)\cdot\left(5\left\Vert a_z\right\Vert\uvec{k}\right) &= 5\pi\left\Vert\vec{a_z}\right\Vert\rho^2
+            \end{align*}
+        \item 
+            \begin{align*}
+                \text{Flux} &= \iint_{\mathbb{R}_1} (\vec{F_1}\cdot\uvec{n}) dS + \iint_{\mathbb{R}_2} (\vec{F_1}\cdot\uvec{n}) dS\\
+            \end{align*}
+            where $\mathbb{R}_1$ is the hemispherical surface and $\mathbb{R}_2$ is the circular base.
+            \begin{align*}
+              \iint_{\mathbb{R}_2} \left(\vec{F_1}\cdot\uvec{n}\right) dS &= \iint_{\mathbb{R}_2} \left(\left(5z\left\Vert \vec{a_z} \right\Vert\uvec{k}\right)\cdot\left(\uvec{-k}\right)\right) dS\\
+              &= \iint_{\mathbb{R}_2} \left(\left(5\left(0\right)\left\Vert \vec{a_z} \right\Vert\uvec{k}\right)\cdot\left(\uvec{-k}\right)\right) dS\\
+              &= 0\\
+              \iint_{\mathbb{R}_1} \left(\vec{F_1}\cdot\uvec{n}\right) dS &= \iint_{\mathbb{R}} (\vec{F_1}\cdot\uvec{n}) dS\\
+                &=\int_{\phi=0}^{\phi=\frac{\pi}{2}}\int_{\theta = 0}^{\theta =2\pi} \left(\left(5z\left\Vert\vec{a_z}\right\Vert\uvec{k}\right)\cdot{\boldsymbol{\hat{\rho}}}\right)\rho \sin(\phi)d\theta d\phi
+            \end{align*}
+            Using, 
+            \begin{align*}
+                \uvec{k} &= \cos(\phi)\boldsymbol{\hat{\rho}} - \sin(\phi)\boldsymbol{\hat{\phi}}\\
+                z &= \rho \sin\left(\phi\right) 
+            \end{align*}
+            We get,
+            \begin{align*}
+                \iint_{\mathbb{R}_1} \left(\vec{F_1}\cdot\uvec{n}\right) dS&=\int_{\phi=0}^{\phi=\frac{\pi}{2}}\int_{\theta = 0}^{\theta =2\pi} \left(\left(5\rho\sin\left(\phi\right)\left\Vert\vec{a_z}\right\Vert\left(\cos(\phi)\boldsymbol{\hat{\rho}} - \sin(\phi)\boldsymbol{\hat{\phi}}\right)\right)\cdot{\boldsymbol{\hat{\rho}}}\right)\rho^2 \sin(\phi)d\theta d\phi\\
+                &=\int_{\phi=0}^{\phi=\frac{\pi}{2}}\int_{\theta = 0}^{\theta =2\pi} 5\rho\sin\left(\phi\right)\left\Vert\vec{a_z}\right\Vert\rho \sin(\phi)\cos \left(\phi \right)d\theta d\phi\\
+                &=\int_{\phi=0}^{\phi=\frac{\pi}{2}}\int_{\theta = 0}^{\theta =2\pi} 5\left\Vert\vec{a_z}\right\Vert\rho^3 \sin^2(\phi)\cos \left(\phi \right)d\theta d\phi\\
+                &=\int_{\phi=0}^{\phi=\frac{\pi}{2}} 10\pi\left\Vert\vec{a_z}\right\Vert\rho^3 \sin^2(\phi)\cos \left(\phi \right)d\theta d\phi\\
+                &=\frac{10}{3}\pi\left\Vert\vec{a_z}\right\Vert\rho^3
+            \end{align*}
+            Therefore, total flux is given by,
+            \begin{align*}
+                \text{Flux} = \frac{10}{3}\pi\left\Vert\vec{a_z}\right\Vert\rho^3
+            \end{align*}
+        \item We can solve part (b) using Divergence Theorem
+        \begin{align*}
+            \mathbb{\nabla}\cdot\vec{F_1} &= \frac{\partial F_{1x}}{\partial x} + \frac{\partial F_{1y}}{\partial y} + \frac{\partial F_{1z}}{\partial z}\\
+            &= \frac{\partial F_{1z}}{\partial z}\\
+            &= 5\left\Vert\vec{a_z}\right\Vert
+        \end{align*}
+        Applying Divergence Theorem, 
+        \begin{align*}
+            \text{Flux} = \iint_{\mathbb{R}} \left(\vec{F_1}\cdot\uvec{n}\right)\,dS = \iiint_{\mathbb{V}}
+            \mathbb{\nabla}\cdot\vec{F_1}\,dV &= 5\left\Vert\vec{a_z}\right\Vert \iiint_{\mathbb{V}}\, dV\\
+            &= 5\left\Vert\vec{a_z}\right\Vert\left(\frac{2\pi\rho^3}{3}\right)\\
+            &= \left\Vert\vec{a_z}\right\Vert\left(\frac{10\pi\rho^3}{3}\right)
+        \end{align*}
+    \end{enumerate}
+\end{problem}
+
+\begin{problem}{}{}
+
+        Owing to the cylindrically symmetric nature of the charge distribution, the electric field must be radially emerging outwards. Exploiting this symmetry, we can use Gauss' theorem, 
+        \begin{align*}
+            \oiint \vec{E}\cdot d\vec{s} = \frac{Q_{enc}}{\epsilon_0}
+        \end{align*}
+        Taking the Gaussian surface to be a cylinder with radius $0<r<b$ and length $l$ (going into the page in the following figure), 
+        \begin{figure}[!ht]
+            \centering
+            \resizebox{1\textwidth}{!}{%
+            \begin{circuitikz}
+            \tikzstyle{every node}=[font=\LARGE]
+            \draw  (5.5,14.25) circle (8cm);
+            \draw [ dashed] (5.5,14) circle (5.25cm);
+            \draw [->, >=Stealth] (5.5,13.5) -- (9.25,17.75);
+            \draw [->, >=Stealth] (5.5,13.5) -- (-1,19);
+            \node [font=\LARGE] at (7,16.25) {r};
+            \node [font=\Large] at (2.75,16.25) {b};
+            \end{circuitikz}
+            }%
+            \caption{Top view of the cylindrical dielectric}
+        \end{figure}
+        $Q_{enc}$ can be calculated as,
+        \begin{align*}
+            Q_{enc} &= \int_{z=0}^{z=l}\int_{\theta = 0}^{\theta =2\pi}\int_{\rho=0}^{\rho=r}\rho_v \rho \,d\rho \,dz \, d\theta\\
+            &= \int_{z=0}^{z=l}\int_{\theta = 0}^{\theta =2\pi}\int_{\rho=0}^{\rho=r}a \rho^3 \,d\rho \,dz \, d\theta\\
+            &= \frac{\pi lr^4}{2}
+        \end{align*}
+        Now, using this in Gauss' Law,
+        \begin{align*}
+            \left\Vert \vec{E} \right\Vert \cdot{\left(2\pi rl\right)} &= \frac{\pi lr^4}{2\epsilon_0}\\
+            \implies \vec{E} &= \frac{r^3}{4\epsilon_0}\boldsymbol{\hat{\rho}},\quad 0< r < a
+        \end{align*}
+
+        For $r \ge a$, 
+        \begin{align*}
+            Q_{enc} = \frac{\pi la^4}{2}
+        \end{align*}
+        Again using Gauss' Law, 
+        \begin{align*}
+            \left\Vert \vec{E} \right\Vert \cdot{\left(2\pi rl\right)} &= \frac{\pi la^4}{2\epsilon_0}\\
+            \implies \vec{E} &= \frac{a^4}{4r\epsilon_0}\boldsymbol{\hat{\rho}}
+        \end{align*}        
+\end{problem}
+
+\begin{problem}{}{}
+    \begin{enumerate}[(a)]
+        \item 
+        \begin{align*}
+            \left\Vert \vec{F} \right\Vert &= \sqrt{\left\Vert \vec{F_s} \right\Vert^2+\left\Vert \vec{F_{\phi}} \right\Vert^2 + \left\Vert \vec{F_z} \right\Vert^2}\\
+            &= \sqrt{\left(4+(3\left(\cos\phi + \sin\phi\right)\right)^2 + 9\left(\cos\phi - \sin\phi\right)^2 + 4}\\
+            &= \sqrt{\left(16+9\left(1+2\sin\phi\cos\phi\right) + 12\left(\cos\phi+\sin\phi\right)\right) + 9\left(1 - 2\cos\phi\sin\phi\right) + 4}\\
+            &= \sqrt{\left(25 + 18\sin\phi\cos\phi\right) + 12\left(\cos\phi+\sin\phi\right) + 9 - 18\cos\phi\sin\phi + 4}\\
+            &= \sqrt{38 + 12\left(\cos\phi+\sin\phi\right)}\\
+        \end{align*}
+        \begin{figure}
+            \centering
+            \includegraphics[width=0.3\linewidth]{5a.png}
+            \caption{Field with $s=3$ as a function of $\phi$}
+            \label{fig:enter-label}
+        \end{figure}
+    \item 
+    \begin{align*}
+        \left\Vert \vec{F} \right\Vert &= \sqrt{\left\Vert \vec{F_s} \right\Vert^2+\left\Vert \vec{F_{\phi}} \right\Vert^2 + \left\Vert \vec{F_z} \right\Vert^2}\\
+        &= \sqrt{\left(\frac{40}{s^2+1} + 3\sqrt{2}\right)^2 + 4}
+    \end{align*}
+    \begin{figure}
+            \centering
+            \includegraphics[width=0.5\linewidth]{5b.png}
+            \caption{Caption}
+            \label{fig:enter-label}
+        \end{figure}
+    \item Divergence in cylindrical coordinates is given by,
+    \begin{align*}
+        \mathbf{\nabla}\cdot \vec{F} &= \frac{1}{s}\frac{\partial \left(s F_s\right)}{\partial s} + \frac{1}{s}\frac{\partial A_{\phi}}{\partial \phi} + \frac{\partial A_z}{\partial z}\\
+        \frac{\partial \left(sF_s\right)}{\partial s} &= \frac{d}{ds}\left(\frac{40s}{s^2+1} + 3s\left(\cos\phi+\sin\phi\right)\right)\\
+        &=\frac{40\left(s^2+1 - 2s^2\right)}{\left(s^2+1\right)^2} + 3\left(\cos\phi+\sin\phi\right)\\
+        &=\frac{40\left(1 - s^2\right)}{\left(s^2+1\right)^2} + 3\left(\cos\phi+\sin\phi\right)\\
+       \frac{1}{s}\frac{\partial \left(s F_s\right)}{\partial s} &=  \frac{40\left(1 - s^2\right)}{s\left(s^2+1\right)^2} + \frac{3\left(\cos\phi+\sin\phi\right)}{s}\\
+       \frac{\partial A_{\phi}}{\partial \phi} &= -3\left(\sin\phi+\cos\phi\right)\\
+       \frac{1}{s}\frac{\partial A_{\phi}}{\partial \phi} &= \frac{-3\left(\sin\phi+\cos\phi\right)}{s}\\
+       \frac{\partial A_z}{\partial z} &= 0
+    \end{align*}
+    Finally, the divergence is given by,
+    \begin{align*}
+        \mathbf{\nabla}\cdot \vec{F} &= \frac{40\left(1 - s^2\right)}{s\left(s^2+1\right)^2}\\
+    \end{align*}
+    \item
+    The curl of a vector field \(\mathbf{F} = F_s \hat{s} + F_\phi \hat{\phi} + F_z \hat{z} \) in cylindrical coordinates \((s, \phi, z)\) is given by:
+
+\begin{align*}
+\nabla \times \mathbf{F} =
+\begin{vmatrix}
+\hat{s} & \hat{\phi} & \hat{z} \\
+\frac{\partial}{\partial s} & \frac{1}{s} \frac{\partial}{\partial \phi} & \frac{\partial}{\partial z} \\
+F_s & F_\phi & F_z
+\end{vmatrix}
+\end{align*}
+
+Expanding this determinant, the components of the curl are:
+
+\begin{align*}
+(\nabla \times \mathbf{F})_s = \frac{1}{s} \left( \frac{\partial F_z}{\partial \phi} - \frac{\partial}{\partial z} (s F_\phi) \right)
+\end{align*}
+
+\begin{align*}
+(\nabla \times \mathbf{F})_\phi = \frac{\partial F_s}{\partial z} - \frac{\partial F_z}{\partial s}
+\end{align*}
+
+\begin{align*}
+(\nabla \times \mathbf{F})_z = \frac{1}{s} \left[ \frac{\partial}{\partial s} (s F_\phi) - \frac{\partial F_s}{\partial \phi} \right]
+\end{align*}
+
+
+
+
+ \( F_z = -2z \) $\implies$ \( \frac{\partial F_z}{\partial \phi} = 0 \).
+ \( F_\phi = 3(\cos\phi - \sin\phi) \), so:
+
+  \[
+  \frac{\partial F_\phi}{\partial z} = 0, \quad s F_\phi = 3s(\cos\phi - \sin\phi)
+  \]
+
+  \[
+  \frac{\partial}{\partial z} (s F_\phi) = 0
+  \]
+
+Thus, \((\nabla \times \mathbf{F})_s = 0\).
+
+
+ \( F_s = \frac{40}{s^2+1} + 3(\cos\phi + \sin\phi) \), so:
+
+  \[
+  \frac{\partial F_s}{\partial z} = 0
+  \]
+
+ \( \frac{\partial F_z}{\partial s} = \frac{\partial (-2z)}{\partial s} = 0 \)
+
+Thus, \((\nabla \times \mathbf{F})_\phi = 0\).
+
+
+ We already have \( s F_\phi = 3s(\cos\phi - \sin\phi) \), so:
+
+  \[
+  \frac{\partial}{\partial s} (s F_\phi) = \frac{\partial}{\partial s} [3s(\cos\phi - \sin\phi)] = 3(\cos\phi - \sin\phi)
+  \]
+
+ For \( \frac{\partial F_s}{\partial \phi} \):
+
+  \[
+  \frac{\partial F_s}{\partial \phi} = \frac{\partial}{\partial \phi} \left[ \frac{40}{s^2+1} + 3(\cos\phi + \sin\phi) \right]
+  \]
+
+  \[
+  = 3(-\sin\phi + \cos\phi)
+  \]
+
+Thus,
+
+\[
+(\nabla \times \mathbf{F})_z = \frac{1}{s} \left[ 3(\cos\phi - \sin\phi) - 3(-\sin\phi + \cos\phi) \right] = 0.
+\]
+Since $\mathbb{\nabla}\cdot\vec{F} = 0$ field is conservative.
+    \end{enumerate}
+\end{problem}
+
+\begin{problem}{}{}
+    
+\end{problem}
+
+\begin{problem}{}{}
+    \begin{enumerate}[(a)]
+        \item From Poisson's Equation we know, 
+        \begin{align*}
+            \mathbb{\nabla}^2V = -\frac{\rho}{\epsilon_0}
+        \end{align*}
+        Writing the Laplacian in spherical coordinates, 
+        \begin{align*}
+\nabla^2 f = \frac{1}{r^2} \frac{\partial}{\partial r} \left( r^2 \frac{\partial f}{\partial r} \right)
++ \frac{1}{r^2 \sin\theta} \frac{\partial}{\partial \theta} \left( \sin\theta \frac{\partial f}{\partial \theta} \right)
++ \frac{1}{r^2 \sin^2\theta} \frac{\partial^2 f}{\partial \phi^2}.
+        \end{align*}
+        We can see that
+        \begin{align*}
+            \frac{\partial V}{\partial \theta} = \frac{\partial V}{\partial \phi} = 0
+        \end{align*}
+        And, 
+        \begin{align*}
+            \frac{\partial V}{\partial r} &= -\frac{V_0}{a}e^{\frac{-r}{a}}\\
+            r^2\frac{\partial V}{\partial r} &= -\frac{V_0r^2}{a}e^{\frac{-r}{a}}\\
+            \frac{\partial}{\partial r}\left(r^2\frac{\partial V}{\partial r}\right)&= \frac{-V_0}{a}e^{\frac{-r}{a}}\left(2r -\frac{r^3}{a}\right)\\
+            \frac{1}{r^2}\frac{\partial}{\partial r}\left(r^2\frac{\partial V}{\partial r}\right)&= \frac{-V_0}{a}e^{\frac{-r}{a}}\left(\frac{2}{r} -\frac{r}{a}\right)\\
+        \end{align*}
+        Therefore,
+        \begin{align*}
+            \rho_v(r) &=  \frac{V_0\epsilon_0}{a}e^{\frac{-r}{a}}\left(\frac{2}{r} -\frac{r}{a}\right)\\
+            \rho_v(a) &=  \frac{V_0\epsilon_0}{a}e^{-1}\left(\frac{2}{a} -1 \right)\\
+        \end{align*}
+        \item We know, 
+        \begin{align*}
+            \vec{E} &= -\mathbb{\nabla}V\\
+            &= -\left( \frac{\partial V}{\partial r} \hat{r} + \frac{1}{r} \frac{\partial V}{\partial \theta} \hat{\theta} + \frac{1}{r \sin\theta} \frac{\partial V}{\partial \phi} \hat{\phi}\right)\\
+            &= \frac{V_0}{a}e^{\frac{-r}{a}} \hat{r}
+        \end{align*}
+        \item To calculate the total charge, 
+        \begin{align*}
+            Q_{tot} &= \epsilon_0 \lim_{r \rightarrow \infty} \left(4\pi r^2\right)\left(\frac{V_0}{a}e^{\frac{-r}{a}}\right)\\
+            &=0
+        \end{align*}
+    \end{enumerate}
+\end{problem}
+\begin{problem}{}{}    
+    Due to the infinite size of the parallel plates in the x-y plane, the electric potential and electric field will vary only with $z$ as all points in the x-y plane are identical in terms of field and potential. 
+    \begin{enumerate}[(a)]
+        \item 
+            With this information, we write Poisson's Equation,  
+            \begin{align*}
+                \mathbb{\nabla}^2V &= \frac{-\rho}{\epsilon_0}\\
+                \implies \frac{\partial^2 V}{\partial x^2}+\frac{\partial^2 V}{\partial y^2}+\frac{\partial^2 V}{\partial z^2} &= \frac{-\rho}{\epsilon_0}\\
+            \end{align*}
+            With, 
+            \begin{align*}
+                \frac{\partial^2 V}{{\partial x}^2} &= 0\\              
+                \frac{\partial^2 V}{{\partial y}^2} &= 0\\              
+            \end{align*}
+            Now, 
+            \begin{align*}
+                \frac{\partial^2 V}{{\partial z}^2} &= \frac{-\rho_0}{\epsilon_0}\\              
+                \implies V(x, y, z) &= \frac{-\rho_0 z^2}{2\epsilon_0} + C_1z + C_2\\
+            \end{align*}\
+            Using the boundary conditions, 
+            \begin{align*}
+                V(x, y, 0) &= 0\\
+                V(x, y, d) &= 0\\
+                \\
+                \implies C_2 &= 0\\
+                \text{and} \quad C_1 &= \frac{\rho_0 d}{2\epsilon_0} 
+            \end{align*}
+            Finally, 
+            \begin{align*}
+                V(x,y,z) = \frac{-\rho_0 z^2}{2\epsilon_0} + \frac{\rho_0 dz}{2\epsilon_0}  \\
+            \end{align*}
+        \item 
+        We know, 
+        \begin{align*}
+            \vec{E} &= -\mathbb{\nabla}V = -\frac{\partial V}{\partial z}\uvec{k}\\
+                &= \uvec{k}\frac{\partial}{\partial z}\left(\frac{\rho_0 z^2}{2\epsilon_0} - \frac{\rho_0 dz}{2\epsilon_0}\right)\\
+                &= \frac{\rho_0}{\epsilon_0}\left(z - \frac{d}{2}\right)\uvec{k}
+        \end{align*}
+        \item 
+            \begin{enumerate}
+                \item In this problem we just change one of the boundary condition, namely,   
+                    \begin{align*}
+                        V(x, y, d) = V_0\\
+                    \end{align*}
+                    So we will still get \begin{align*}
+                        C_2 = 0
+                    \end{align*} due to the previous boundary condition. Using the new boundary condition, we get
+                    \begin{align*}
+                        V_0  &= \frac{-\rho_0 d^2}{2\epsilon_0} + C_1d\\
+                        \implies C_1 &= \frac{1}{d}\left(V_0 + \frac{\rho_0 d^2}{2\epsilon_0}\right)
+                    \end{align*}
+                    So the new expression for the potential is,
+                    \begin{align*}
+                        V(x, y, z) &= \frac{-\rho_0 z^2}{2\epsilon_0} + \frac{z}{d}\left(V_0 + \frac{\rho_0 d^2}{2\epsilon_0}\right)
+                    \end{align*}
+                \item  
+                    Again
+                        \begin{align*}
+                            \vec{E} &= -\mathbb{\nabla}V = -\frac{\partial V}{\partial z}\uvec{k}\\
+                                &= \uvec{k}\frac{\partial}{\partial z}\left(\frac{-\rho_0 z^2}{2\epsilon_0} + \frac{z}{d}\left(V_0 + \frac{\rho_0 d^2}{2\epsilon_0}\right)\right)\\
+                                &= \left(\frac{-\rho_0 z}{\epsilon_0} + \frac{1}{d}\left(V_0 + \frac{\rho_0 d^2}{2\epsilon_0}\right)\right)\uvec{k}
+                        \end{align*}
+            \end{enumerate}
+    \end{enumerate}
+ \end{problem}
+% =================================================
+% \newpage
+
+% \vfill
+
+\end{document}

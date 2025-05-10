@@ -1,0 +1,146 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{listings}
+\usepackage{xcolor}
+
+\definecolor{codegray}{gray}{0.95}
+
+\lstset{
+  backgroundcolor=\color{codegray},
+  basicstyle=\ttfamily\footnotesize,
+  frame=single,
+  breaklines=true,
+  language=Verilog
+}
+
+\begin{document}
+
+\section*{Problem 1 : Priority Encoder Module}
+
+The following Verilog module implements a 4-to-2 \textbf{priority encoder} with an additional \texttt{valid} output signal. It takes a 4-bit input vector \texttt{in[3:0]} and produces a 2-bit output \texttt{out[1:0]} representing the highest-priority asserted input (with bit 3 having the highest priority and bit 0 the lowest).
+
+\begin{itemize}
+	\item The \texttt{always @(*)} block ensures combinational logic.
+	\item The \texttt{casez} statement allows for "don't care" conditions (using `z`) to simplify pattern matching.
+	\item If one or more input bits are high, the encoder outputs the binary index of the highest-priority high bit and sets \texttt{valid = 1}.
+	\item If no input bits are high, \texttt{valid} is set to 0 and \texttt{out} is set to 0.
+\end{itemize}
+
+\noindent Here's the Verilog code:
+
+\begin{lstlisting}
+module priorityEncoder(input [3:0] in, output reg [1:0] out, output reg valid);
+  always @ (*) begin
+    casez (in)
+      4'b1zzz : begin valid = 1'b1; out = 2'd3; end
+      4'b01zz : begin valid = 1'b1; out = 2'd2; end
+      4'b001z : begin valid = 1'b1; out = 2'd1; end
+      4'b0001 : begin valid = 1'b1; out = 2'd0; end
+      default : begin
+        valid = 1'b0;
+        out = 2'd0;
+      end
+    endcase
+  end
+endmodule
+\end{lstlisting}
+
+\section*{Problem 2 : 4 bit Mod 16 Synchrnonous Up Counter Module}
+
+The \texttt{synchronousUpCounter} module implements a 4-bit synchronous up counter with asynchronous reset and enable control. Two versions of the counter are shown:
+
+\subsection*{1. Implementation using T Flip-Flop K-Map Logic}
+\begin{itemize}
+	\item This version mimics a T flip-flop–based design derived from Karnaugh map simplifications.
+	\item On every rising edge of the clock:
+	      \begin{itemize}
+		      \item If \texttt{reset} is high, the counter resets to 0.
+		      \item If \texttt{enable} is high, the next state of each bit is determined by toggling behavior:
+		            \begin{align*}
+			            \texttt{out[0]} & \leftarrow \sim \texttt{out[0]}                                                                 \\
+			            \texttt{out[1]} & \leftarrow \texttt{out[1]} \oplus \texttt{out[0]}                                               \\
+			            \texttt{out[2]} & \leftarrow \texttt{out[2]} \oplus (\texttt{out[0]} \land \texttt{out[1]})                       \\
+			            \texttt{out[3]} & \leftarrow \texttt{out[3]} \oplus (\texttt{out[0]} \land \texttt{out[1]} \land \texttt{out[2]})
+		            \end{align*}
+	      \end{itemize}
+	\item This design mirrors the behavior of T flip-flops where toggling occurs when input T = 1.
+\end{itemize}
+
+\noindent Code snippet:
+
+\begin{lstlisting}
+module synchronousUpCounter(
+  input clk,
+  input reset,
+  input enable,
+  output reg [3:0] out
+);
+  always @ (posedge clk or posedge reset) begin
+    if (reset == 1)
+      out <= 4'd0;
+    else if (enable == 1) begin
+      out[0] <= ~out[0];
+      out[1] <= out[1] ^ out[0];
+      out[2] <= out[2] ^ (out[0] & out[1]);
+      out[3] <= out[3] ^ (out[0] & out[1] & out[2]);
+    end
+  end
+endmodule
+\end{lstlisting}
+
+\subsection*{2. Implementation using Adder Logic}
+\begin{itemize}
+	\item This alternative version uses a standard binary incrementer (adder logic).
+	\item On the rising edge of the clock:
+	      \begin{itemize}
+		      \item If \texttt{reset} is high, the counter resets to 0.
+		      \item If \texttt{enable} is high, the counter is incremented by 1.
+	      \end{itemize}
+	\item This approach is more compact and commonly used in synthesizable designs.
+\end{itemize}
+
+\noindent Code snippet:
+
+\begin{lstlisting}
+/* implemented using adder logic */
+module synchronousUpCounter (
+  input clk, 
+  input reset, 
+  input enable, 
+  output reg [3:0] out
+);
+always @ (posedge clk or posedge reset) begin
+  if (reset == 1) out <= 4'd0;
+  else if (enable == 1) begin
+    out <= out + 1'b1;
+  end
+end
+endmodule
+\end{lstlisting}
+
+\section*{Problem 3: Even Parity Generator}
+
+The following Verilog module computes the \textbf{parity bit} of an 8-bit input vector.
+
+\begin{itemize}
+	\item The module takes an 8-bit input vector \texttt{data[7:0]}.
+	\item It produces a single-bit output \texttt{parity}, which is the result of a bitwise XOR (exclusive OR) operation on all bits of \texttt{data}.
+	\item The reduction operator \texttt{\^{}} (XOR reduction) is used to compute the parity efficiently:
+	      \[
+		      \texttt{parity} = data[0] \oplus data[1] \oplus \cdots \oplus data[7]
+	      \]
+	\item If the number of 1s in \texttt{data} is odd, the output is 1 (odd parity). If even, the output is 0.
+\end{itemize}
+
+\noindent Here is the Verilog code:
+
+\begin{lstlisting}
+module parity(input [7:0] data, output parity);
+  assign parity = ^ data;
+endmodule
+\end{lstlisting}
+
+\end{document}
+
+\end{document}
+
