@@ -12,10 +12,8 @@ import matplotlib.pyplot as plt
 from tqdm import tqdm
 import numpy as np
 
-# Load CSV
 labeled_data = pd.read_csv("train.csv")
 
-# Split into training and validation sets
 training_df, validation_df = train_test_split(
     labeled_data, test_size=0.25, stratify=labeled_data["Class"], random_state=123
 )
@@ -45,7 +43,6 @@ class CoinDataset(Dataset):
         return self.transform(image), label
 
 
-# Transforms with augmentation
 transform = transforms.Compose(
     [
         transforms.Resize((224, 224)),
@@ -58,16 +55,14 @@ transform = transforms.Compose(
     ]
 )
 
-# Dataset and Dataloader setup
 training_data = CoinDataset(training_df, "train", transform)
 validation_data = CoinDataset(validation_df, "train", transform)
 
 train_loader = DataLoader(training_data, batch_size=50, shuffle=True)
 validation_loader = DataLoader(validation_data, batch_size=50, shuffle=False)
 
-device = torch.device("cpu")  # or torch.device("cuda") if GPU is available
+device = torch.device("cpu")
 
-# Load pretrained ResNet18 and adjust final layer
 model = models.resnet18(pretrained=True)
 model.fc = nn.Sequential(
     nn.Linear(model.fc.in_features, 512),
@@ -77,12 +72,10 @@ model.fc = nn.Sequential(
 )
 model = model.to(device)
 
-# Loss and optimizer
 criterion = nn.CrossEntropyLoss()
 optimizer = optim.Adam(model.parameters(), lr=1e-4)
 
 
-# Evaluation function
 def evaluate(model, val_loader):
     correct_pred = {classname: 0 for classname in val_loader.dataset.coin_classes}
     total_pred = {classname: 0 for classname in val_loader.dataset.coin_classes}
@@ -133,7 +126,6 @@ def evaluate(model, val_loader):
     return val_loss, val_acc
 
 
-# Training function
 def train_model(model, train_loader, val_loader, epochs=10):
     training_accuracies = np.zeros(epochs)
     validation_accuracies = np.zeros(epochs)
@@ -180,13 +172,11 @@ def train_model(model, train_loader, val_loader, epochs=10):
     )
 
 
-# Train
 epochs = 10
 training_accuracies, training_losses, validation_accuracies, validation_losses = (
     train_model(model, train_loader, validation_loader, epochs)
 )
 
-# Plot metrics
 x_range = np.arange(1, epochs + 1)
 
 fig, axs = plt.subplots(2, 2, figsize=(10, 8))
@@ -205,7 +195,6 @@ axs[1, 1].set_title("Validation Loss vs. Epoch")
 plt.tight_layout()
 plt.show()
 
-# Confusion Matrix (overall)
 model.eval()
 y_true, y_pred = [], []
 with torch.no_grad():
@@ -222,7 +211,6 @@ disp.plot(cmap=plt.cm.Blues)
 plt.title("Overall Confusion Matrix")
 plt.show()
 
-# TP, FP, FN, TN (overall)
 TP = np.diag(cm).sum()
 FP = cm.sum(axis=0) - np.diag(cm)
 FN = cm.sum(axis=1) - np.diag(cm)
@@ -230,7 +218,6 @@ TN = cm.sum() - (FP + FN + np.diag(cm))
 
 print(f"TP: {TP}, FP: {FP.sum()}, FN: {FN.sum()}, TN: {TN.sum()}")
 
-# Test prediction
 test_transform = transforms.Compose(
     [
         transforms.Resize((224, 224)),
