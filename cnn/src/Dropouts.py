@@ -12,7 +12,7 @@ import matplotlib.pyplot as plt
 from tqdm import tqdm
 import numpy as np
 
-labeled_data = pd.read_csv("train.csv")
+labeled_data = pd.read_csv("../inputs/train.csv")
 
 training_df, validation_df = train_test_split(
     labeled_data, test_size=0.25, stratify=labeled_data["Class"], random_state=123
@@ -37,7 +37,7 @@ class CoinDataset(Dataset):
 
     def __getitem__(self, index):
         image_id = self.data.loc[index, "Id"]
-        image_path = f"train/{image_id}.jpg"
+        image_path = f"../train/{image_id}.jpg"
         image = Image.open(image_path).convert("RGB")
         label = self.assigned_class_index[self.data.loc[index, "Class"]]
         return self.transform(image), label
@@ -55,8 +55,8 @@ transform = transforms.Compose(
     ]
 )
 
-training_data = CoinDataset(training_df, "train", transform)
-validation_data = CoinDataset(validation_df, "train", transform)
+training_data = CoinDataset(training_df, "../train", transform)
+validation_data = CoinDataset(validation_df, "../train", transform)
 
 train_loader = DataLoader(training_data, batch_size=50, shuffle=True)
 validation_loader = DataLoader(validation_data, batch_size=50, shuffle=False)
@@ -64,7 +64,12 @@ validation_loader = DataLoader(validation_data, batch_size=50, shuffle=False)
 device = torch.device("cpu")
 
 model = models.resnet18(pretrained=True)
-model.fc = nn.Linear(model.fc.in_features, len(training_data.coin_classes))
+model.fc = nn.Sequential(
+    nn.Linear(model.fc.in_features, 512),
+    nn.ReLU(),
+    nn.Dropout(p=0.5),  # 50% dropout rate
+    nn.Linear(512, len(training_data.coin_classes)),
+)
 model = model.to(device)
 
 criterion = nn.CrossEntropyLoss()
@@ -223,7 +228,7 @@ test_transform = transforms.Compose(
 
 model.eval()
 test_preds = []
-test_filenames = sorted(os.listdir("test"))
+test_filenames = sorted(os.listdir("../test"))
 
 for filename in test_filenames:
     img_path = os.path.join("test", filename)
@@ -237,6 +242,6 @@ for filename in test_filenames:
         test_preds.append((filename[:-4], label))
 
 submission = pd.DataFrame(test_preds, columns=["id", "label"])
-submission.to_csv("submission.csv", index=False)
+submission.to_csv("../csv/submission-dropout.csv", index=False)
 
 torch.save(model.state_dict(), "model_weights.pth")
