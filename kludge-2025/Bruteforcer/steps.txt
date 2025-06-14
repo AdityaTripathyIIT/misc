@@ -1,0 +1,13 @@
+since the encryption scheme is using md5 and sha256 hashes of the actual key in encryption,
+the only way to recover key is to guess using rockyou.txt
+
+after bruteforcing you get key to be r0cky0u
+
+wc -l plaintexts.txt -> 1000
+wc -l ciphertexts.txt -> 999
+
+so we encrypt each word in plaintexts.txt and check if it is present in ciphertexts.txt. 
+
+the one which is not is to be pasted in pastebin
+(NHPAjmKiLfZ6tOx8APut4H5oDrJ)
+

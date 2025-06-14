@@ -1,0 +1,3 @@
+Did not bother with anything, just reversengineered the flag
+xor is its own inverse so i just tried different length repeating xor keys because i know
+flag starts with ImNotMid or imNotMid

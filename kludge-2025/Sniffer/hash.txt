@@ -1,0 +1,1 @@
+chall.zip/flag.txt:$pkzip$1*2*2*0*36*2a*f7a4af6a*0*42*0*36*5ea4*70d8d68b70b2729ca1a99b06e815d6265c7e5826d1a5f5abccaab77160b6b8ce613ecceed16cf88f8f0039abfb3ee4588d2e3d578f53*$/pkzip$:flag.txt:chall.zip::chall.zip

@@ -1,0 +1,23 @@
+Foremost version 1.5.7 by Jesse Kornblum, Kris Kendall, and Nick Mikus
+Audit File
+
+Foremost started at Fri May 23 14:47:46 2025
+Invocation: foremost hint.png 
+Output directory: /home/aditya/dev/kludge-2025/Obscure/output
+Configuration file: /etc/foremost.conf
+------------------------------------------------------------------
+File: hint.png
+Start: Fri May 23 14:47:46 2025
+Length: 14 KB (14857 bytes)
+ 
+Num	 Name (bs=512)	       Size	 File Offset	 Comment 
+
+0:	00000000.png 	      14 KB 	          0 	  (701 x 47)
+Finish: Fri May 23 14:47:46 2025
+
+1 FILES EXTRACTED
+	
+png:= 1
+------------------------------------------------------------------
+
+Foremost finished at Fri May 23 14:47:46 2025

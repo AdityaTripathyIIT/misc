@@ -1,0 +1,3 @@
+decode_string("%,.& (|y~", &var_38, 9, 0x4d);
+
+decode_string() is just XOR with M {hackme143}

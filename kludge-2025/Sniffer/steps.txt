@@ -1,0 +1,1 @@
+Wireshark -> Second.png -> base64 -> anonfile -> chall.zip -> password -> fcrackzip -> dattebayo {password to zip archive}

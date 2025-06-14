@@ -1,0 +1,17 @@
+1. binwalk extract -> readme.log -> 42 (will lead nowhere)
+
+2. Try to find hidden NTFS since ext4 file size is 524Mb(exiftool) but ext4 partition size 
+is only 427Mb (parted mystery_disk.ext4 print)
+
+3. grep -ba "NTFS" mystery_disk.ext4 (-b -> give the offset at which match occurs | -a treat binary as txt)
+4. 472907779:NTFS
+   524287491:NTFS
+
+5. Try to extract at byte offset 472907779 (treat the number as 512 byte sectors, round to 
+closest multiple of 512 -> 472907776)
+6. sudo mkdir /mnt/ntfs_part
+sudo mount -o ro,loop,offset=472907776 mystery_disk.ext4 /mnt/ntfs_part
+cd /mnt/ntfs_part
+
+7. look at noise.txt:secret, xor with 66 (trial and error)
+8. flag -> ImNotMid{wh04_t4k3_1t_345y_Mr_f0r3n5ics_69420}

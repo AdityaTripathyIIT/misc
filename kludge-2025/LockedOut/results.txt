@@ -1,0 +1,2 @@
+/admin               [33m (Status: 400)[0m [Size: 946]
+/keywords            [32m (Status: 200)[0m [Size: 2243]

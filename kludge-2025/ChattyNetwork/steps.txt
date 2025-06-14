@@ -1,0 +1,7 @@
+1. fool around and see lots of dns requests
+2. filter for dns requests
+3. fool around more and see "badbitch" type requests
+4. filter for badbitch in dns (dns.qry.name contains "badbitch")
+5. Use the first parts of the 6 results (concantenate)
+6. base32 decode
+JFWU433UJVUWI63OGN2HO33SNMYW4OK7NESF6N3IGNPWWM3ZL43W6X3TOVRWGMZVONPTQMLUMNUH2
